@@ -14,13 +14,13 @@ pipeline {
             }
         }
         steps {
-            echo "deploy $params.environment"
+            echo "deploy $params.env"
         } 
         }
         stage("Stage B") {
             steps {
                 script {
-                    if ( params.environment == "demo" ) {
+                    if ( params.env == "demo" ) {
                         echo "deploy $params.env"
                     }
                 }
