@@ -1,0 +1,23 @@
+pipeline {
+    agent none
+    stages {
+        stage("maven version") {
+            agent {
+                docker 'maven:3-alpine'
+            }
+            steps {
+                echo "maver ver"
+                sh "mvn --version"
+            }
+        }
+        stage("java version") {
+            agent {
+                docker 'openjdk:latest'
+            }
+            steps {
+                echo "java ver"
+                sh "java -version"
+            }
+        }
+    }
+}
