@@ -3,14 +3,14 @@ pipeline {
     agent any 
 
     parameters {
-        choice choices: ['dev', 'stage', 'demo', 'prod'], description: '', name: 'Env'
+        choice choices: ['dev', 'stage', 'demo', 'prod'], description: '', name: 'env'
     }
 
     stages {
         stage("Stabe A") {
         when {
             anyOf {
-                expression { params.environment == 'demo' }
+                expression { params.env == 'demo' }
             }
         }
         steps {
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     if ( params.environment == "demo" ) {
-                        echo "deploy $params.environment"
+                        echo "deploy $params.env"
                     }
                 }
             }
