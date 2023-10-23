@@ -1,0 +1,40 @@
+pipeline {
+	options {
+		timestamps()
+	}
+    stages {
+        stage('STAGE-A') {
+            input {
+              message 'Kontynuj?'
+              submitter 'oskar_sobczyk'
+            }
+            steps {
+                echo "foo"
+            }
+        }
+		stage ('STAGE-B') {
+            parallel {
+                stage('STAGE-C') {
+                    steps {
+                        echo "STAGE-C"
+                        sleep 10
+                    }
+                }
+                stage('STAGE-D') {
+                    steps {
+                        echo "STAGE-C"
+                        sleep 10
+                        sh 'exit 1'
+
+                    }
+                }
+                stage ('STAGE-E') {
+                    steps {
+                        echo "STAGE-D"
+                        sleep 10
+                    }
+                }
+        }
+    }
+}
+}
