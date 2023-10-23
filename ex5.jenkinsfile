@@ -15,14 +15,14 @@ pipeline {
     
     stages {
         
-        stage("Check environment") {
+        stage("Env check") {
             steps {
                 echo "env.env"
                 echo "env.ver"
             }
         }
         
-        stage("Check timeout") {
+        stage("Timeout test") {
             options {
                 timeout(time: 30, unit: 'SECONDS')
             }
