@@ -1,0 +1,43 @@
+pipeline {
+    agent {
+      label 'slave01'
+    }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '7', numToKeepStr: '3')
+        timeout(5)
+        timestamps()        
+    }
+    
+    environment {
+        env = "prod,test,dev"
+        ver = "main,test,rtm"
+    }
+    
+    stages {
+        
+        stage("Check environment") {
+            steps {
+                echo "env.env"
+                echo "env.ver"
+            }
+        }
+        
+        stage("Check timeout") {
+            options {
+                timeout(time: 30, unit: 'SECONDS')
+            }
+        
+            steps {
+                sh "sleep 60"
+            }
+            
+        }
+        
+    }
+
+    post {
+      always {
+        cleanWs()
+      }
+    }
+}
