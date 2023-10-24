@@ -1,0 +1,29 @@
+pipeline {
+    agent { label 'slave01' }
+    stages {
+        stage('Pull image 1') {
+            steps {
+                script {
+                    try {
+                        sh 'docker pull alpine:latest'
+                    } catch (Exception e) {
+                        echo "Wystąpił wyjątek: ${e.message}"
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+            }
+        }
+        stage('Pull image 2') {
+            steps {
+                script {
+                    try {
+                        sh 'docker pull fasdfasdfsf:latest'
+                    } catch (Exception e) {
+                        echo "Wystąpił wyjątek: ${e.message}"
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+            }
+        }
+    }
+}
