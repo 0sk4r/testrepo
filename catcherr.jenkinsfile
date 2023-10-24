@@ -1,0 +1,23 @@
+pipeline {
+    agent { label 'slave01' }
+    stages {
+        stage('Pull image 1') {
+            steps {
+                script {
+                    catchError(buildResult: 'FAILURE', stageResult: 'UNSTABLE') {
+                        sh 'docker pull alpine:latest'
+                    }
+                }
+            }
+        }
+        stage('Pull image 2') {
+            steps {
+                script {
+                    catchError(buildResult: 'FAILURE', stageResult: 'UNSTABLE') {
+                        sh 'docker pull fasdfasfdasfasfd:latest'
+                    }
+                }
+            }
+        }
+    }
+}
