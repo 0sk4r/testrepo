@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+  parameters {
+          string(name: 'my_var', defaultValue: 'test', description: 'test')
+
+}
+    stages {
+        stage('test') {
+            steps {
+                sh "exit 1"
+            }
+        }
+    }
+    post {
+        failure {
+            script {
+                build job: 'downstream', parameters: [string(name: 'my_var', value: params.myval)]
+            }
+        }
+    }
+}
